@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Tests in Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "module": "pytest",
+            "cwd": "${workspaceFolder}/src",
+            "args": [
+                "-v",
+                "-s",
+                "${file}"
+            ]
+        },
+        {
+            "name": "Run All Tests",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "cwd": "${workspaceFolder}/src",
+            "args": [
+                "-v",
+                "-s",
+                "../tests"
+            ]
+        },
+        {
+            "name": "Debug Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "redirectOutput": true
+        }
+    ]
+}

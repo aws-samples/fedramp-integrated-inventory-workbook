@@ -1,0 +1,132 @@
+{
+    "configuration": {
+        "subnetId": "subnet-83cf26ea",
+        "virtualizationType": "hvm",
+        "capacityReservationSpecification": {
+            "capacityReservationPreference": "open"
+        },
+        "amiLaunchIndex": 0,
+        "enaSupport": true,
+        "elasticInferenceAcceleratorAssociations": [],
+        "sourceDestCheck": true,
+        "hibernationOptions": {
+            "configured": false
+        },
+        "instanceId": "i-03cbdcb2bb8425d47",
+        "vpcId": "vpc-88e50ee1",
+        "hypervisor": "xen",
+        "rootDeviceName": "/dev/xvda",
+        "productCodes": [],
+        "state": {
+            "code": "16",
+            "name": "running"
+        },
+        "architecture": "x86_64",
+        "ebsOptimized": true,
+        "imageId": "ami-6e92711f",
+        "blockDeviceMappings": [
+            {
+                "ebs": {
+                    "volumeId": "vol-083ba735bb011e5c8",
+                    "deleteOnTermination": true,
+                    "attachTime": "2019-11-19T16:20:24.000Z",
+                    "status": "attached"
+                },
+                "deviceName": "/dev/xvda"
+            }
+        ],
+        "publicIpAddress": "11.111.111.111",
+        "stateTransitionReason": "",
+        "clientToken": "",
+        "instanceType": "t3.micro",
+        "cpuOptions": {
+            "threadsPerCore": 2,
+            "coreCount": 1
+        },
+        "monitoring": {
+            "state": "disabled"
+        },
+        "publicDnsName": "ec2-11-111-111-111.us-gov-east-1.compute.amazonaws.com",
+        "iamInstanceProfile": {
+            "id": "AIPAXGYJARCHP3CJJFWOF",
+            "arn": "arn:aws-us-gov:iam::123456789012:instance-profile/SsmManagedInstance"
+        },
+        "privateIpAddress": "172.31.0.188",
+        "rootDeviceType": "ebs",
+        "tags": [
+            {
+                "value": "True",
+                "key": "IsIsolated"
+            }
+        ],
+        "launchTime": "2019-11-19T16:20:24.000Z",
+        "elasticGpuAssociations": [],
+        "licenses": [],
+        "networkInterfaces": [
+            {
+                "networkInterfaceId": "eni-09ca92d35e333fa1b",
+                "privateIpAddresses": [
+                    {
+                        "association": {
+                            "ipOwnerId": "amazon",
+                            "publicIp": "11.111.111.111",
+                            "publicDnsName": "ec2-11-111-111-111.us-gov-east-1.compute.amazonaws.com"
+                        },
+                        "privateDnsName": "ip-172-31-0-188.us-gov-east-1.compute.internal",
+                        "privateIpAddress": "172.31.0.188",
+                        "primary": true
+                    }
+                ],
+                "subnetId": "subnet-83cf26ea",
+                "association": {
+                    "ipOwnerId": "amazon",
+                    "publicIp": "11.111.111.111",
+                    "publicDnsName": "ec2-11-111-111-111.us-gov-east-1.compute.amazonaws.com"
+                },
+                "description": "",
+                "groups": [
+                    {
+                        "groupName": "default",
+                        "groupId": "sg-f714e69f"
+                    }
+                ],
+                "ipv6Addresses": [],
+                "ownerId": "123456789012",
+                "sourceDestCheck": true,
+                "privateIpAddress": "172.31.0.188",
+                "interfaceType": "interface",
+                "macAddress": "06:d1:af:2f:a4:46",
+                "attachment": {
+                    "attachmentId": "eni-attach-015730ee59e442f05",
+                    "deleteOnTermination": true,
+                    "deviceIndex": 0,
+                    "attachTime": "2019-11-19T16:20:24.000Z",
+                    "status": "attached"
+                },
+                "vpcId": "vpc-88e50ee1",
+                "privateDnsName": "ip-172-31-0-188.us-gov-east-1.compute.internal",
+                "status": "in-use"
+            }
+        ],
+        "privateDnsName": "ip-172-31-0-188.us-gov-east-1.compute.internal",
+        "securityGroups": [
+            {
+                "groupName": "default",
+                "groupId": "sg-f714e69f"
+            }
+        ],
+        "placement": {
+            "groupName": "",
+            "tenancy": "default",
+            "availabilityZone": "us-gov-east-1a"
+        }
+    },
+    "tags": [
+        {
+            "tag": "IsIsolated=True",
+            "value": "True",
+            "key": "IsIsolated"
+        }
+    ],
+    "resourceType": "AWS::EC2::Instance"
+}

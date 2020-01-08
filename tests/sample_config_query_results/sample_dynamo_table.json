@@ -1,0 +1,35 @@
+{
+    "configuration": {
+        "attributeDefinitions": [
+            {
+                "attributeType": "S",
+                "attributeName": "record-type"
+            }
+        ],
+        "keySchema": [
+            {
+                "attributeName": "record-type",
+                "keyType": "HASH"
+            }
+        ],
+        "tableId": "c123f12f-12c1-1234-af01-1e1afdafcc12",
+        "provisionedThroughput": {
+            "numberOfDecreasesToday": 0.0,
+            "writeCapacityUnits": 5.0,
+            "readCapacityUnits": 5.0
+        },
+        "tableStatus": "ACTIVE",
+        "tableName": "my-temp-table",
+        "creationDateTime": "2019-11-20T16:36:54.455Z",
+        "tableArn": "arn:aws-us-gov:dynamodb:us-gov-east-1:123456789012:table/my-temp-table"
+    },
+    "arn": "arn:aws-us-gov:dynamodb:us-gov-east-1:123456789012:table/my-temp-table",
+    "tags": [
+        {
+            "tag": "mytag\\u003dvalue",
+            "value": "value",
+            "key": "mytag"
+        }
+    ],
+    "resourceType": "AWS::DynamoDB::Table"
+}

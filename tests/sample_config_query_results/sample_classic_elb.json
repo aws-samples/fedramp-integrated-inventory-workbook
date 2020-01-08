@@ -1,0 +1,68 @@
+{
+    "arn": "arn:aws-us-gov:elasticloadbalancing:us-gov-east-1:123456789012:loadbalancer/my-test-loadbalancer",
+    "configuration": {
+        "canonicalHostedZoneNameID": "Z166TLBEWOO7G0",
+        "scheme": "internet-facing",
+        "policies": {
+            "lbcookieStickinessPolicies": [],
+            "appCookieStickinessPolicies": [],
+            "otherPolicies": []
+        },
+        "availabilityZones": [
+            {
+                "value": "us-gov-east-1b"
+            },
+            {
+                "value": "us-gov-east-1a"
+            },
+            {
+                "value": "us-gov-east-1c"
+            }
+        ],
+        "backendServerDescriptions": [],
+        "sourceSecurityGroup": {
+            "ownerAlias": "123456789012",
+            "groupName": "default"
+        },
+        "loadBalancerName": "my-test-loadbalancer",
+        "listenerDescriptions": [
+            {
+                "listener": {
+                    "instancePort": 80,
+                    "instanceProtocol": "HTTP",
+                    "protocol": "HTTP",
+                    "loadBalancerPort": 80
+                },
+                "policyNames": []
+            }
+        ],
+        "vpcid": "vpc-88e50ee1",
+        "dnsname": "my-test-loadbalancer-123415.us-gov-east-1.elb.amazonaws.com",
+        "createdTime": 1574121317790,
+        "subnets": [
+            {
+                "value": "subnet-83cf26ea"
+            },
+            {
+                "value": "subnet-917b51db"
+            },
+            {
+                "value": "subnet-d95a51a1"
+            }
+        ],
+        "securityGroups": [
+            {
+                "value": "sg-f714e69f"
+            }
+        ],
+        "canonicalHostedZoneName": "my-test-loadbalancer-1795943216.us-gov-east-1.elb.amazonaws.com"
+    },
+    "tags": [
+        {
+            "tag": "MyLB=IsClassic",
+            "value": "IsClassic",
+            "key": "MyLB"
+        }
+    ],
+    "resourceType": "AWS::ElasticLoadBalancing::LoadBalancer"
+}

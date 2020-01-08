@@ -1,0 +1,36 @@
+{
+    "configuration": {
+        "loadBalancerArn": "arn:aws-us-gov:elasticloadbalancing:us-gov-east-1:123456789012:loadbalancer/net/nlb/f9ad7b767f625655",
+        "scheme": "internet-facing",
+        "loadBalancerName": "nlb",
+        "canonicalHostedZoneId": "Z1ZSMQQ6Q24QQ8",
+        "vpcId": "vpc-12341234",
+        "createdTime": "2019-11-20T11:23:16.516Z",
+        "availabilityZones": [
+            {
+                "subnetId": "subnet-83cf26ea",
+                "zoneName": "us-gov-east-1a",
+                "loadBalancerAddresses": [
+                    {}
+                ]
+            },
+            {
+                "subnetId": "subnet-d95a51a1",
+                "zoneName": "us-gov-east-1b",
+                "loadBalancerAddresses": [
+                    { "ipAddress": "11.111.111.111"}
+                ]
+            }
+        ],
+        "securityGroups": [],
+        "dNSName": "nlb-f9ad7b767f625655.elb.us-gov-east-1.amazonaws.com",
+        "state": {
+            "code": "active"
+        },
+        "type": "network",
+        "ipAddressType": "ipv4"
+    },
+    "arn": "arn:aws-us-gov:elasticloadbalancing:us-gov-east-1:123456789012:loadbalancer/net/nlb/f9ad7b767f625655",
+    "tags": [],
+    "resourceType": "AWS::ElasticLoadBalancingV2::LoadBalancer"
+}

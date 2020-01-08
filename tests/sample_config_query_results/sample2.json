@@ -1,0 +1,492 @@
+[
+    {
+        "configuration": {
+            "allocatedStorage": 1.0,
+            "enabledCloudwatchLogsExports": [],
+            "readReplicaDBClusterIdentifiers": [],
+            "associatedRoles": [],
+            "dBParameterGroups": [
+                {
+                    "dBParameterGroupName": "default.aurora5.6",
+                    "parameterApplyStatus": "in-sync"
+                }
+            ],
+            "availabilityZone": "us-gov-east-1b",
+            "dBSecurityGroups": [],
+            "statusInfos": [],
+            "engineVersion": "5.6.10a",
+            "masterUsername": "admin",
+            "dBInstanceClass": "db.t2.small",
+            "processorFeatures": [],
+            "readReplicaDBInstanceIdentifiers": [],
+            "monitoringInterval": 0.0,
+            "dBInstanceStatus": "creating",
+            "backupRetentionPeriod": 1.0,
+            "promotionTier": 1.0,
+            "optionGroupMemberships": [
+                {
+                    "optionGroupName": "default:aurora-5-6",
+                    "status": "in-sync"
+                }
+            ],
+            "kmsKeyId": "arn:aws-us-gov:kms:us-gov-east-1:123456789012:key/c123f12f-12c1-1234-af01-1e1afdafcc12",
+            "dBClusterIdentifier": "mydbinstance-priv-cluster",
+            "dbInstancePort": 0.0,
+            "preferredBackupWindow": "21:42-22:12",
+            "dbiResourceId": "db-dfassadf23fdfas",
+            "deletionProtection": false,
+            "dBInstanceIdentifier": "mydbinstance-priv-us-gov-east-1b",
+            "dBInstanceArn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mydbinstance-priv-us-gov-east-1b",
+            "engine": "aurora",
+            "publiclyAccessible": false,
+            "iAMDatabaseAuthenticationEnabled": false,
+            "performanceInsightsEnabled": false,
+            "multiAZ": false,
+            "domainMemberships": [],
+            "storageEncrypted": true,
+            "dBSubnetGroup": {
+                "vpcId": "vpc-88e50ee1",
+                "subnets": [
+                    {
+                        "subnetIdentifier": "subnet-d95a51a1",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1b"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-83cf26ea",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1a"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-917b51db",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1c"
+                        }
+                    }
+                ],
+                "subnetGroupStatus": "Complete",
+                "dBSubnetGroupName": "default",
+                "dBSubnetGroupDescription": "default"
+            },
+            "vpcSecurityGroups": [
+                {
+                    "vpcSecurityGroupId": "sg-f714e69f",
+                    "status": "active"
+                }
+            ],
+            "pendingModifiedValues": {
+                "processorFeatures": []
+            },
+            "licenseModel": "general-public-license",
+            "preferredMaintenanceWindow": "fri:22:45-fri:23:15",
+            "storageType": "aurora",
+            "autoMinorVersionUpgrade": true,
+            "copyTagsToSnapshot": false
+        },
+        "arn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mydbinstance-priv-us-gov-east-1b",
+        "tags": [],
+        "resourceType": "AWS::RDS::DBInstance"
+    },
+    {
+        "configuration": {
+            "allocatedStorage": 20.0,
+            "enabledCloudwatchLogsExports": [],
+            "readReplicaDBClusterIdentifiers": [],
+            "associatedRoles": [],
+            "dBParameterGroups": [
+                {
+                    "dBParameterGroupName": "default.mysql5.7",
+                    "parameterApplyStatus": "in-sync"
+                }
+            ],
+            "availabilityZone": "us-gov-east-1c",
+            "dBSecurityGroups": [],
+            "statusInfos": [],
+            "engineVersion": "5.7.24",
+            "masterUsername": "admin",
+            "instanceCreateTime": "2019-11-20T21:59:38.781Z",
+            "dBInstanceClass": "db.t2.micro",
+            "processorFeatures": [],
+            "readReplicaDBInstanceIdentifiers": [],
+            "monitoringInterval": 0.0,
+            "dBInstanceStatus": "available",
+            "backupRetentionPeriod": 0.0,
+            "optionGroupMemberships": [
+                {
+                    "optionGroupName": "default:mysql-5-7",
+                    "status": "in-sync"
+                }
+            ],
+            "cACertificateIdentifier": "rds-ca-2017",
+            "dbInstancePort": 0.0,
+            "preferredBackupWindow": "21:06-21:36",
+            "dbiResourceId": "db-32dfasdfsf23e4234",
+            "deletionProtection": false,
+            "dBInstanceIdentifier": "mymysqldbinstance-pub",
+            "dBInstanceArn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mymysqldbinstance-pub",
+            "endpoint": {
+                "hostedZoneId": "Z1OCXXRO09ICTP",
+                "address": "mymysqldbinstance-pub.32r1adsfasdfa.us-gov-east-1.rds.amazonaws.com",
+                "port": 3306.0
+            },
+            "engine": "mysql",
+            "maxAllocatedStorage": 1000.0,
+            "publiclyAccessible": true,
+            "iAMDatabaseAuthenticationEnabled": false,
+            "performanceInsightsEnabled": false,
+            "dBName": "mydbname",
+            "multiAZ": false,
+            "domainMemberships": [],
+            "storageEncrypted": false,
+            "dBSubnetGroup": {
+                "vpcId": "vpc-88e50ee1",
+                "subnets": [
+                    {
+                        "subnetIdentifier": "subnet-d95a51a1",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1b"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-83cf26ea",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1a"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-917b51db",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1c"
+                        }
+                    }
+                ],
+                "subnetGroupStatus": "Complete",
+                "dBSubnetGroupName": "default",
+                "dBSubnetGroupDescription": "default"
+            },
+            "vpcSecurityGroups": [
+                {
+                    "vpcSecurityGroupId": "sg-015d198dd14f4f1ed",
+                    "status": "active"
+                }
+            ],
+            "pendingModifiedValues": {
+                "processorFeatures": []
+            },
+            "licenseModel": "general-public-license",
+            "preferredMaintenanceWindow": "sat:22:16-sat:22:46",
+            "storageType": "gp2",
+            "autoMinorVersionUpgrade": true,
+            "copyTagsToSnapshot": true
+        },
+        "arn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mymysqldbinstance-pub",
+        "tags": [
+            {
+                "tag": "workload-type\\u003dother",
+                "value": "other",
+                "key": "workload-type"
+            }
+        ],
+        "resourceType": "AWS::RDS::DBInstance"
+    },
+    {
+        "configuration": {
+            "allocatedStorage": 20.0,
+            "enabledCloudwatchLogsExports": [],
+            "readReplicaDBClusterIdentifiers": [],
+            "associatedRoles": [],
+            "dBParameterGroups": [
+                {
+                    "dBParameterGroupName": "default.sqlserver-ex-14.0",
+                    "parameterApplyStatus": "in-sync"
+                }
+            ],
+            "availabilityZone": "us-gov-east-1c",
+            "dBSecurityGroups": [],
+            "statusInfos": [],
+            "engineVersion": "14.00.3223.3.v1",
+            "masterUsername": "amin",
+            "dBInstanceClass": "db.t2.micro",
+            "processorFeatures": [],
+            "readReplicaDBInstanceIdentifiers": [],
+            "monitoringInterval": 0.0,
+            "dBInstanceStatus": "creating",
+            "backupRetentionPeriod": 0.0,
+            "optionGroupMemberships": [
+                {
+                    "optionGroupName": "default:sqlserver-ex-14-00",
+                    "status": "in-sync"
+                }
+            ],
+            "dbInstancePort": 0.0,
+            "preferredBackupWindow": "17:30-18:00",
+            "dbiResourceId": "db-fasdfa234234dafasfas",
+            "deletionProtection": false,
+            "dBInstanceIdentifier": "mysqldbinstance-priv",
+            "dBInstanceArn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mysqldbinstance-priv",
+            "engine": "sqlserver-ex",
+            "maxAllocatedStorage": 1000.0,
+            "publiclyAccessible": false,
+            "iAMDatabaseAuthenticationEnabled": false,
+            "performanceInsightsEnabled": false,
+            "multiAZ": false,
+            "characterSetName": "SQL_Latin1_General_CP1_CI_AS",
+            "domainMemberships": [],
+            "storageEncrypted": false,
+            "dBSubnetGroup": {
+                "vpcId": "vpc-88e50ee1",
+                "subnets": [
+                    {
+                        "subnetIdentifier": "subnet-d95a51a1",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1b"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-83cf26ea",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1a"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-917b51db",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1c"
+                        }
+                    }
+                ],
+                "subnetGroupStatus": "Complete",
+                "dBSubnetGroupName": "default",
+                "dBSubnetGroupDescription": "default"
+            },
+            "vpcSecurityGroups": [
+                {
+                    "vpcSecurityGroupId": "sg-0d598ad8e2bf21967",
+                    "status": "active"
+                }
+            ],
+            "pendingModifiedValues": {
+                "processorFeatures": [],
+                "masterUserPassword": "****"
+            },
+            "licenseModel": "license-included",
+            "preferredMaintenanceWindow": "thu:22:00-thu:22:30",
+            "storageType": "gp2",
+            "autoMinorVersionUpgrade": true,
+            "copyTagsToSnapshot": false
+        },
+        "arn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mysqldbinstance-priv",
+        "tags": [],
+        "resourceType": "AWS::RDS::DBInstance"
+    },
+    {
+        "configuration": {
+            "allocatedStorage": 1.0,
+            "enabledCloudwatchLogsExports": [],
+            "readReplicaDBClusterIdentifiers": [],
+            "associatedRoles": [],
+            "dBParameterGroups": [
+                {
+                    "dBParameterGroupName": "default.aurora5.6",
+                    "parameterApplyStatus": "in-sync"
+                }
+            ],
+            "availabilityZone": "us-gov-east-1a",
+            "dBSecurityGroups": [],
+            "statusInfos": [],
+            "engineVersion": "5.6.10a",
+            "masterUsername": "admin",
+            "instanceCreateTime": "2019-11-20T21:54:16.205Z",
+            "dBInstanceClass": "db.t2.small",
+            "processorFeatures": [],
+            "readReplicaDBInstanceIdentifiers": [],
+            "monitoringInterval": 0.0,
+            "dBInstanceStatus": "available",
+            "backupRetentionPeriod": 1.0,
+            "promotionTier": 1.0,
+            "optionGroupMemberships": [
+                {
+                    "optionGroupName": "default:aurora-5-6",
+                    "status": "in-sync"
+                }
+            ],
+            "kmsKeyId": "arn:aws-us-gov:kms:us-gov-east-1:123456789012:key/c123f12f-12c1-1234-af01-1e1afdafcc12",
+            "dBClusterIdentifier": "mydbinstance-priv-cluster",
+            "cACertificateIdentifier": "rds-ca-2017",
+            "dbInstancePort": 0.0,
+            "preferredBackupWindow": "21:42-22:12",
+            "dbiResourceId": "db-dfasf23rasdfasdfasdf",
+            "deletionProtection": false,
+            "dBInstanceIdentifier": "mydbinstance-priv",
+            "dBInstanceArn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mydbinstance-priv",
+            "endpoint": {
+                "hostedZoneId": "Z1OCXXRO09ICTP",
+                "address": "mydbinstance-priv.ckt8fknykow5.us-gov-east-1.rds.amazonaws.com",
+                "port": 3306.0
+            },
+            "engine": "aurora",
+            "publiclyAccessible": false,
+            "iAMDatabaseAuthenticationEnabled": false,
+            "performanceInsightsEnabled": false,
+            "multiAZ": false,
+            "domainMemberships": [],
+            "storageEncrypted": true,
+            "dBSubnetGroup": {
+                "vpcId": "vpc-88e50ee1",
+                "subnets": [
+                    {
+                        "subnetIdentifier": "subnet-d95a51a1",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1b"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-83cf26ea",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1a"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-917b51db",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1c"
+                        }
+                    }
+                ],
+                "subnetGroupStatus": "Complete",
+                "dBSubnetGroupName": "default",
+                "dBSubnetGroupDescription": "default"
+            },
+            "vpcSecurityGroups": [
+                {
+                    "vpcSecurityGroupId": "sg-f714e69f",
+                    "status": "active"
+                }
+            ],
+            "pendingModifiedValues": {
+                "processorFeatures": []
+            },
+            "licenseModel": "general-public-license",
+            "preferredMaintenanceWindow": "tue:21:53-tue:22:23",
+            "storageType": "aurora",
+            "autoMinorVersionUpgrade": true,
+            "copyTagsToSnapshot": false
+        },
+        "arn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mydbinstance-priv",
+        "tags": [
+            {
+                "tag": "workload-type\\u003dother",
+                "value": "other",
+                "key": "workload-type"
+            }
+        ],
+        "resourceType": "AWS::RDS::DBInstance"
+    },
+    {
+        "configuration": {
+            "allocatedStorage": 20.0,
+            "enabledCloudwatchLogsExports": [],
+            "readReplicaDBClusterIdentifiers": [],
+            "associatedRoles": [],
+            "dBParameterGroups": [
+                {
+                    "dBParameterGroupName": "default.sqlserver-ex-14.0",
+                    "parameterApplyStatus": "in-sync"
+                }
+            ],
+            "availabilityZone": "us-gov-east-1b",
+            "dBSecurityGroups": [],
+            "statusInfos": [],
+            "engineVersion": "14.00.3223.3.v1",
+            "masterUsername": "admin",
+            "dBInstanceClass": "db.t2.micro",
+            "processorFeatures": [],
+            "readReplicaDBInstanceIdentifiers": [],
+            "monitoringInterval": 0.0,
+            "dBInstanceStatus": "creating",
+            "backupRetentionPeriod": 0.0,
+            "optionGroupMemberships": [
+                {
+                    "optionGroupName": "default:sqlserver-ex-14-00",
+                    "status": "in-sync"
+                }
+            ],
+            "dbInstancePort": 0.0,
+            "preferredBackupWindow": "23:29-23:59",
+            "dbiResourceId": "db-fasdf23r4fasdfasfasdf",
+            "deletionProtection": false,
+            "dBInstanceIdentifier": "mysqldbinstance-pub",
+            "dBInstanceArn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mysqldbinstance-pub",
+            "engine": "sqlserver-ex",
+            "maxAllocatedStorage": 1000.0,
+            "publiclyAccessible": false,
+            "iAMDatabaseAuthenticationEnabled": false,
+            "performanceInsightsEnabled": false,
+            "multiAZ": false,
+            "characterSetName": "SQL_Latin1_General_CP1_CI_AS",
+            "domainMemberships": [],
+            "storageEncrypted": false,
+            "dBSubnetGroup": {
+                "vpcId": "vpc-88e50ee1",
+                "subnets": [
+                    {
+                        "subnetIdentifier": "subnet-d95a51a1",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1b"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-83cf26ea",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1a"
+                        }
+                    },
+                    {
+                        "subnetIdentifier": "subnet-917b51db",
+                        "subnetStatus": "Active",
+                        "subnetAvailabilityZone": {
+                            "name": "us-gov-east-1c"
+                        }
+                    }
+                ],
+                "subnetGroupStatus": "Complete",
+                "dBSubnetGroupName": "default",
+                "dBSubnetGroupDescription": "default"
+            },
+            "vpcSecurityGroups": [
+                {
+                    "vpcSecurityGroupId": "sg-04f5ba8ece99c42e0",
+                    "status": "active"
+                }
+            ],
+            "pendingModifiedValues": {
+                "processorFeatures": [],
+                "masterUserPassword": "****"
+            },
+            "licenseModel": "license-included",
+            "preferredMaintenanceWindow": "sat:20:56-sat:21:26",
+            "storageType": "gp2",
+            "autoMinorVersionUpgrade": true,
+            "copyTagsToSnapshot": true
+        },
+        "arn": "arn:aws-us-gov:rds:us-gov-east-1:123456789012:db:mysqldbinstance-pub",
+        "tags": [],
+        "resourceType": "AWS::RDS::DBInstance"
+    }
+]
