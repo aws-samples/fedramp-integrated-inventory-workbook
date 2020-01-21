@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Template for 
+             - creating roles
+             - provide cross account permissions
+
+Parameters:
+
+  MasterAccountId:
+    Description: Master Account AccountId
+    Type: String
+    Default: 244267968620
+    AllowedPattern: '.+'
+
+Resources:
+  InventoryCollectorLambdaExecuteRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: "InventoryCollector-for-Lambda"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+            Effect: "Allow"
+            Principal:
+              AWS: !Ref MasterAccountId
+            Action: "sts:AssumeRole"
+      Path: "/"
+      ManagedPolicyArns: 
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSConfigRole
+
+Outputs: 
+  InventoryCollectorLambdaExecuteRoleArn: 
+    Value: !Ref InventoryCollectorLambdaExecuteRole
+
