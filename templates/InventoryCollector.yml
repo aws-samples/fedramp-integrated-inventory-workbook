@@ -1,0 +1,133 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Template for 
+             - Create Lambda
+             - Create CloudWatch Scheduler for trigerring InventoryCollector Lambda.
+
+
+Parameters:
+
+  MasterAccountName: 
+    Type: String
+    Description: Provide the friendly name of the master account.
+    Default: 'master-account'
+
+  DomainAccountId: 
+    Type: String
+    Description: Provide the AWS AccountId of the domain account.  
+    Default: 111111111111
+
+  DomainAccountName: 
+    Type: String
+    Description: Provide the friendly name of the domain account.
+    Default: 'domain-account-1'
+
+  LambdaPayloadLocation:
+    Type: String
+    Default: source-bucket-for-replication
+    Description: 'Enter the name of the S3 Bucket that has your Lambda Code. This cant be empty'
+
+  LambdaPayload: 
+    Type: String
+    Default: fedramp-inventory-lambda.zip 
+    Description: Enter the filename.  
+
+  ScheduleExpression:
+    Description: Cron expression that determines when and how often the rule runs. For example, an expression like - 0 15 * * ? * will trigger this rule at 8AM PST everyday of the month.
+    Type: String
+    Default: cron(0 9,21 * * ? *)
+    AllowedPattern: .+
+
+Resources:
+
+  integratedinventorybucket:
+    Type: AWS::S3::Bucket
+    Properties: 
+      BucketName: !Sub 'integrated-inventory-reports-${AWS::AccountId}' 
+      VersioningConfiguration:
+        Status: Enabled
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  InventoryCollectorLambdaExecuteRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: InventoryCollectorLambdaExecuteRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+              AWS: 
+                - !Ref AWS::AccountId
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+      - PolicyName: LambdaAccessRole
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action: "*"
+              Resource: "*"
+            - Effect: Allow
+              Action: "sts:AssumeRole"
+              Resource: 
+                - !Sub 'arn:${AWS::Partition}:iam::${DomainAccountId}:role/InventoryCollector-for-Lambda'
+
+  InventoryCollectorLambda:
+    Type: "AWS::Lambda::Function"
+    DependsOn: 
+      - integratedinventorybucket
+      - InventoryCollectorLambdaExecuteRole
+    Properties:
+      FunctionName: InventoryCollector
+      Handler: "inventory.handler.lambda_handler"
+      Runtime: "python3.8"
+      Role: !GetAtt InventoryCollectorLambdaExecuteRole.Arn
+      Timeout: 900
+      Code:
+        S3Bucket: !Ref LambdaPayloadLocation
+        S3Key: !Ref LambdaPayload
+      Environment:
+        Variables:
+          'ACCOUNT_LIST': !Sub '[{ "name": "${MasterAccountName}", "id": "${AWS::AccountId}" }, { "name": "${DomainAccountName}", "id": "${DomainAccountId}" } ]'
+          'CROSS_ACCOUNT_ROLE_NAME': 'InventoryCollector-for-Lambda'
+          'REPORT_TARGET_BUCKET_NAME': !Ref integratedinventorybucket
+          'REPORT_TARGET_BUCKET_PATH': 'inventory-reports'
+
+  ScheduleExpressiontoTriggerInventoryCollectorLambda:
+    Type: AWS::Events::Rule
+    DependsOn:
+        - InventoryCollectorLambda
+    Properties: 
+      Description: CloudWatch Event Rule for triggering InventoryCollector Lambda
+      Name: InventoryCollector-ScheduleExpression
+      ScheduleExpression: !Ref ScheduleExpression
+      State: ENABLED
+      Targets: 
+        - 
+          Arn: 
+            Fn::GetAtt: 
+              - "InventoryCollectorLambda"
+              - "Arn"
+          Id: InventoryCollectorLambda
+
+  PermissionForEventsToInvokeLambda: 
+    Type: AWS::Lambda::Permission
+    Properties: 
+      FunctionName: 
+        Ref: "InventoryCollectorLambda"
+      Action: "lambda:InvokeFunction"
+      Principal: "events.amazonaws.com"
+      SourceArn: 
+        Fn::GetAtt: 
+          - "ScheduleExpressiontoTriggerInventoryCollectorLambda"
+          - "Arn"
+
