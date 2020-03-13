@@ -15,7 +15,7 @@ Additionally, this project installs the following software for the purposes of d
 
 ## Overview
 
-This example shows how you can create a Lambda function to retrieve inventory information to create the integrated inventory spreadsheet which can be used as a separate attachment to the FedRAMP System Security Plan (SSP). The spreadsheet template can be found [here](https://www.fedramp.gov/new-integrated-inventory-template/).
+This sample shows how you can create a Lambda function to retrieve inventory information to create the integrated inventory spreadsheet which can be used as a separate attachment to the FedRAMP System Security Plan (SSP) and is the repository associated to the [Automating creation of a FedRAMP Integrated Inventory Workbook](https://aws.amazon.com/blogs/publicsector/automating-creation-fedramp-integrated-inventory-workbook/) blog post. The spreadsheet template can be found [here](https://www.fedramp.gov/new-integrated-inventory-template/).
 
 This sample populates the inventory spreadsheet with a point in time view of a subset of all AWS resources spanning multiple AWS accounts. The following resource types are currently supported AWS::EC2::Instance, AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::ElasticLoadBalancing::LoadBalancer, AWS::DynamoDB::Table, AWS::RDS::DBInstance.
 
@@ -35,17 +35,17 @@ This project follows the [src project structure](https://blog.ionelmc.ro/2014/05
 
 Additionally, here are notes of other key files/folders not typically found in a Python project:
 
-* **package.sh** - This script bundles the package so that it can be uploaded to Lambda. However, a Lambda package .zip file is already included with the repository. This requires the setup of a virtual environment using pyenv.
+* **package.sh** - This script bundles the package so that it can be uploaded to Lambda. However, a Lambda package .zip file is already included with the repository. This requires the setup of a virtual environment using pyenv. [AWS Serverless Application Model](https://aws.amazon.com/serverless/sam/) was not used in an effort to minimize the number of concepts introduced.
 
 ## Running the Code
-The code was developed using Python 3.8, pyenv, pipenv. After performing git clone on the repository, create a virtualenv however you prefer. Both a requirements.txt file and Pipfile have been provided, for example if you have Python 3.8 installed and set at the current version, you can run the following commands in the project directory:
+The code was developed using Python 3.8, pyenv, and pipenv. After cloning the repository locally, create a virtualenv however you prefer. Both a requirements.txt file and Pipfile have been provided, for example if you have Python 3.8 installed and set at the current version, you can run the following commands in the project directory:
 
 ``` bash
 python -m venv .
 source ./bin/activate
 ```
 
-Install the package, its dependencies and dev dependencies. Dev dependencies are not included in the requirements.txt as pipenv is used for dependency management and requirements.txt was created without include dev-dependencies. For ease of getting up an running though, you can execute the following commands:
+Install the package, its dependencies and dev dependencies. Dev dependencies are not included in the requirements.txt as pipenv is used for dependency management, and requirements.txt was created without including dev dependencies. For ease of getting up an running though, you can execute the following commands:
 
 ``` bash
 python -m pip install -r requirements.txt
@@ -60,7 +60,7 @@ If you've got everything installed correctly, you should see output similar to:
 ![Unit Test Results](./docs/TestResults.png)
 
 ### Development
-The project was developed using Visual Studio Code and the .vscode directory with three launch configuration is included. Among them is "Run All Tests" configuration which can be used to run all unit tests in the project. Unit tests mock out calls to AWS services and so you do not need to worry about tests calls when they are executed. A .env.sample file is included which you can use to set the environment variables used by Visual Studio Code. If the .env file is not recognized by Visual Studio Code, ensure that the "python.envFile" setting is set to "${workspaceFolder}/.env".
+The project was developed using Visual Studio Code and the .vscode directory with three launch configuration is included. Among them is "Run All Tests" configuration which can be used to run all unit tests in the project. Unit tests mock out calls to AWS services so you do not need to worry about tests using the services when executed. A .env.sample file is included which you can use to set the environment variables used by Visual Studio Code. If the .env file is not recognized by Visual Studio Code, ensure that the "python.envFile" setting is set to "${workspaceFolder}/.env".
 
 ### Environment Variables
 
@@ -82,14 +82,15 @@ This section contains the design details of this package.
 ### Items In Scope
 * Gather inventory information from AWS Config and deliver to S3
 
-### Items In Out-of-Scope / Possible Next Steps
+### Items Out-of-Scope / Possible Next Steps
 * Errors while retrieving inventory from AWS accounts are logged as errors but processing continues. Raising a CloudWatch event for these errors so that alerts can be created could be a next step.
-* Account list is provided via an Environment Variable, until AWS Organizations is implemented, it would be ideal to have a centralized store where this list is maintained.
+* Account list is provided via an Environment Variable, using either AWS Organizations to gather the list of member accounts or using a centralized store where this list is maintained could be a next step.
 * Publishing metrics is out of scope
 * Software/Container inventory is out of scope
 * Use of structured logging is out of scope
 * Access to the report is out of scope. This project merely drops the file in S3
 * Code Coverage, and CI/CD pipeline are out of scope
+* Using [AWS Serverless Application Model](https://aws.amazon.com/serverless/sam/) is out of scope
 
 ### Conceptual Design
 ![Conceptual Design](./docs/ConceptualDesign.png)
@@ -103,15 +104,16 @@ The above diagram shows the modules that make up the inventory package and relat
 
 Classes in the Readers and Reports modules implement the [Command Handler pattern](https://blogs.cuttingedge.it/steven/posts/2011/meanwhile-on-the-command-side-of-my-architecture/). To keep things simple and given that dependency injection is not used, method arguments are not represented as Command classes.
 
-The Handler module contains the Lambda entry point which acts as the coordinator of the AwsConfigInventoryReader which is responsible for retrieving inventory information, CreateReportCommandHandler which is responsible for creating the inventory report spreadsheet, and the DeliverReportCommandHandler which is responsible for uploading the spreadsheet to S3.
+The Handler module contains the Lambda entry point that acts as the coordinator of the AwsConfigInventoryReader which is responsible for retrieving inventory information, CreateReportCommandHandler which is responsible for creating the inventory report spreadsheet, and the DeliverReportCommandHandler which is responsible for uploading the spreadsheet to S3.
 
-The Mappers module is composed of a class hierarchy that implemente the [Data Mapper pattern](https://martinfowler.com/eaaCatalog/dataMapper.html), providing a well known extensibility point for adding additional classes to map new resource types. The result of data mapping is a list of InventoryData instances. The goal is to normalize the various data structures retrieved from AWS Config into a single type which can then be used by the CreateReportCommandHandler to populate the inventory spreadsheet.
+The Mappers module is composed of a class hierarchy that implements the [Data Mapper pattern](https://martinfowler.com/eaaCatalog/dataMapper.html), providing a well known extensibility point for adding additional classes to map new resource types. The result of data mapping is a list of InventoryData instances. The goal is to normalize the various data structures retrieved from AWS Config into a single type which can then be used by the CreateReportCommandHandler to populate the inventory spreadsheet.
 
 ### Dynamic Behavior
 The following section details this package's runtime behavior of the major components
 
 #### Report Generation
 ![Report Generation Sequence Diagram](./docs/SequenceOverview.png)
+
 Before we get into the details, lets look at sequence of steps and the classes that the Lambda Handler module uses to create the inventory report. As you can see, the Handler needs to directly interact with only three classes, AwsConfiInventoryReader, CreateReportCommandHandler and DeliverReportCommandHandler, whose names imply their responsibility. Now let's take a bit of a more detailed look at the call sequence.
 
 ![Report Generation Sequence Diagram](./docs/ReportGenerationSequenceDiagram.png)
