@@ -35,8 +35,8 @@ class AwsConfigInventoryReader():
                                                         DurationSeconds=900)
             config_client = self._get_config_client(sts_response)
 
+            next_token: str = ''
             while True:
-                next_token: str = ''
                 resources_result = config_client.select_resource_config(Expression="SELECT arn, resourceType, configuration, tags "
                                                                                    "WHERE resourceType IN ('AWS::EC2::Instance', 'AWS::ElasticLoadBalancingV2::LoadBalancer', "
                                                                                        "'AWS::ElasticLoadBalancing::LoadBalancer', 'AWS::DynamoDB::Table', 'AWS::RDS::DBInstance')",
