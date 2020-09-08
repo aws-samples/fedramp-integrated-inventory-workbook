@@ -95,3 +95,4 @@ def test_given_multiple_resource_pages_from_boto_then_reader_loops_through_all_p
 
     assert len(all_inventory) == 0, "no inventory should be returned since there was nothing to map"
     assert len(mock_select_resource_config.mock_calls) == 2, "boto should have been called twice to page through results"
+    assert mock_select_resource_config.call_args.kwargs["NextToken"] == "nextpage", "NextToken must use value from previous select_resource_config call"

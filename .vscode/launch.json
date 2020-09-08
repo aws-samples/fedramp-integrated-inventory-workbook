@@ -8,7 +8,6 @@
             "name": "Run Tests in Current File",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
             "console": "integratedTerminal",
             "module": "pytest",
             "cwd": "${workspaceFolder}/src",
