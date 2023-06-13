@@ -25,7 +25,7 @@ Resources:
             Action: "sts:AssumeRole"
       Path: "/"
       ManagedPolicyArns: 
-        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSConfigRole
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWS_ConfigRole
 
 Outputs: 
   InventoryCollectorLambdaExecuteRoleArn: 
