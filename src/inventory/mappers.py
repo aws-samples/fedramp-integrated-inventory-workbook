@@ -124,7 +124,7 @@ class ElbDataMapper(DataMapper):
                  "unique_id": config_resource["arn"],
                  "is_virtual": "Yes",
                  "authenticated_scan_planned": "Yes",
-                 "is_public": "Yes" if config_resource["configuration"]["scheme"] == "internet-facing" else "No",
+                 "is_public": "Yes" if config_resource.get("configuration").get("scheme", "unknown") == "internet-facing" else "No",
                  # Classic ELBs have key of "vpcid" while V2 ELBs have key of "vpcId"
                  "network_id": config_resource["configuration"]["vpcId"] if "vpcId" in config_resource["configuration"] else config_resource["configuration"]["vpcid"],
                  "owner": _get_tag_value(config_resource["tags"], "owner") }
