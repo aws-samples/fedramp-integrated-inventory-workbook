@@ -54,6 +54,8 @@ Resources:
 
   InventoryCollectorLambdaExecuteRole:
     Type: "AWS::IAM::Role"
+    DependsOn:
+    - integratedinventorybucket
     Properties:
       RoleName: InventoryCollectorLambdaExecuteRole
       AssumeRolePolicyDocument:
@@ -68,11 +70,17 @@ Resources:
             Action:
               - "sts:AssumeRole"
       Path: "/"
+      ManagedPolicyArns: 
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       Policies:
       - PolicyName: LambdaAccessRole
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
+            - Effect: Allow
+              Action: "s3:PutObject"
+              Resource: 
+                - !Sub 'arn:${AWS::Partition}:s3:::integrated-inventory-reports-${AWS::AccountId}/*'
             - Effect: Allow
               Action: "sts:AssumeRole"
               Resource: 
@@ -127,4 +135,3 @@ Resources:
         Fn::GetAtt: 
           - "ScheduleExpressiontoTriggerInventoryCollectorLambda"
           - "Arn"
-
