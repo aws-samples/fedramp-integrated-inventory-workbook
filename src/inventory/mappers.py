@@ -14,9 +14,10 @@ def _get_tag_value(tags: dict, tag_name: str) -> str:
     return next((tag["value"] for tag in tags if tag["key"].casefold() == tag_name.casefold()), '')
 
 class InventoryData:
-    def __init__(self, *, asset_type = None, unique_id = None, ip_address = None, location = None, is_virtual = None, 
-                authenticated_scan_planned = None, dns_name = None, mac_address = None, baseline_config = None, hardware_model = None, 
-                is_public = None, network_id = None, owner = None, software_product_name = None, software_vendor = None):
+   def __init__(self, *, asset_type=None, unique_id=None, ip_address=None, location=None, is_virtual=None,
+                 authenticated_scan_planned=None, dns_name=None, mac_address=None, baseline_config=None,
+                 hardware_model=None,
+                 is_public=None, network_id=None, iir_diagram_label=None, owner=None, software_product_name=None, software_vendor=None):
         self.asset_type = asset_type
         self.unique_id = unique_id
         self.ip_address = ip_address
@@ -29,6 +30,7 @@ class InventoryData:
         self.hardware_model = hardware_model
         self.is_public = is_public
         self.network_id = network_id
+        self.iir_diagram_label = iir_diagram_label
         self.owner = owner
         self.software_product_name = software_product_name
         self.software_vendor = software_vendor
@@ -77,6 +79,7 @@ class EC2DataMapper(DataMapper):
                              "baseline_config": config_resource["configuration"]["imageId"],
                              "hardware_model": config_resource["configuration"]["instanceType"],
                              "network_id": config_resource["configuration"]["vpcId"],
+                             "iir_diagram_label": _get_tag_value(config_resource["tags"], "iir_diagram_label"),
                              "owner": _get_tag_value(config_resource["tags"], "owner") }
 
                 if (public_dns_name := config_resource["configuration"].get("publicDnsName")):
@@ -127,6 +130,7 @@ class ElbDataMapper(DataMapper):
                  "is_public": "Yes" if config_resource.get("configuration").get("scheme", "unknown") == "internet-facing" else "No",
                  # Classic ELBs have key of "vpcid" while V2 ELBs have key of "vpcId"
                  "network_id": config_resource["configuration"]["vpcId"] if "vpcId" in config_resource["configuration"] else config_resource["configuration"]["vpcid"],
+                 "iir_diagram_label": _get_tag_value(config_resource["tags"], "iir_diagram_label"),
                  "owner": _get_tag_value(config_resource["tags"], "owner") }
 
         if len(ip_addresses := self._get_ip_addresses(config_resource["configuration"]["availabilityZones"])) > 0:
@@ -143,17 +147,20 @@ class ElbDataMapper(DataMapper):
 
 class RdsDataMapper(DataMapper):
     def _get_supported_resource_type(self) -> List[str]:
-        return ["AWS::RDS::DBInstance"]
+        return ["AWS::RDS::DBInstance", "AWS::RDS::DBCluster"]
 
     def _do_mapping(self, config_resource: dict) -> List[InventoryData]:
         data = { "asset_type": "RDS",
                  "unique_id": config_resource["arn"],
                  "is_virtual": "Yes",
                  "software_vendor": "AWS",
-                 "is_public": "Yes" if config_resource["configuration"]["publiclyAccessible"] else "No",
-                 "hardware_model": config_resource["configuration"]["dBInstanceClass"],
+                 # DB Cluster vs DB Instance
+                 "is_public": "Yes" if "publiclyAccessible" in config_resource["configuration"] and config_resource["configuration"]["publiclyAccessible"] else "No",                 
+                 "hardware_model": config_resource["configuration"] ["dBInstanceClass"] if "dBInstanceClass" in config_resource["configuration"] else '',                 
                  "software_product_name": f"{config_resource['configuration']['engine']}-{config_resource['configuration']['engineVersion']}",
-                 "network_id": config_resource['configuration']['dBSubnetGroup']['vpcId'] if "dBSubnetGroup" in config_resource['configuration'] else '',
+                 # DB Cluster vs DB Instance
+                 "network_id": config_resource['configuration']['dBSubnetGroup']['vpcId'] if "dBSubnetGroup" in config_resource['configuration'] else config_resource['configuration']['dbsubnetGroup'] if "dbsubnetGroup" in config_resource['configuration'] else '',
+                 "iir_diagram_label": _get_tag_value(config_resource["tags"], "iir_diagram_label"),
                  "owner": _get_tag_value(config_resource["tags"], "owner") }
 
         return [InventoryData(**data)]
@@ -169,6 +176,7 @@ class DynamoDbTableDataMapper(DataMapper):
                  "is_public": "No",
                  "software_vendor": "AWS",
                  "software_product_name": "DynamoDB",
+                 "iir_diagram_label": _get_tag_value(config_resource["tags"], "iir_diagram_label"),
                  "owner": _get_tag_value(config_resource["tags"], "owner") }
 
         return [InventoryData(**data)]

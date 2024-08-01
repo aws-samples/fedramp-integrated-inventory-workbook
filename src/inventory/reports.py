@@ -16,7 +16,7 @@ _logger.setLevel(os.environ.get("LOG_LEVEL", logging.INFO))
 _current_dir_name = os.path.dirname(__file__)
 _workbook_template_file_name = os.path.join(_current_dir_name, "SSP-A13-FedRAMP-Integrated-Inventory-Workbook-Template.xlsx")
 _workbook_output_file_path = PurePath("/tmp/SSP-A13-FedRAMP-Integrated-Inventory.xlsx")
-DEFAULT_REPORT_WORKSHEET_FIRST_WRITEABLE_ROW_NUMBER = 6
+DEFAULT_REPORT_WORKSHEET_FIRST_WRITEABLE_ROW_NUMBER = 3
 
 class CreateReportCommandHandler():
     def _write_cell_if_value_provided(self, worksheet: Worksheet, column:int, row: int, value: str):
@@ -44,6 +44,7 @@ class CreateReportCommandHandler():
             self._write_cell_if_value_provided(reportWorksheet, 13, rowNumber, inventory_row.hardware_model)
             self._write_cell_if_value_provided(reportWorksheet, 15, rowNumber, inventory_row.software_vendor)
             self._write_cell_if_value_provided(reportWorksheet, 16, rowNumber, inventory_row.software_product_name)
+            self._write_cell_if_value_provided(reportWorksheet, 18, rowNumber, inventory_row.iir_diagram_label)
             self._write_cell_if_value_provided(reportWorksheet, 21, rowNumber, inventory_row.network_id)
             self._write_cell_if_value_provided(reportWorksheet, 22, rowNumber, inventory_row.owner)
             self._write_cell_if_value_provided(reportWorksheet, 23, rowNumber, inventory_row.owner)
